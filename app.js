@@ -39,6 +39,9 @@ var matrix_transform = d3.transform().scale(function(d) {
   return 1.05;
 });
 
+var selected_target;
+var selected_source;
+
 function init() {
   nodes = [];
   links = [];
@@ -549,14 +552,28 @@ var drawWordCloud = function() {
     .selectAll("li")
     .data(headerArr)
     .enter()
-    .append("li");
+    .append("li")
+    .on("click", function(d) {
+      selected_target = d;
+
+      if (selected_source != null && selected_target != null) {
+        selected_specific_block();
+      }
+    });
 
   var li_item_source = d3
     .select("#source_dropdown")
     .selectAll("li")
     .data(headerArr)
     .enter()
-    .append("li");
+    .append("li")
+    .on("click", function(d) {
+      selected_source = d;
+
+      if (selected_source != null && selected_target != null) {
+        selected_specific_block();
+      }
+    });
 
   li_item_target
     .append("a")
@@ -628,6 +645,14 @@ var drawWordCloud = function() {
       return d;
     })
     .raise();
+};
+
+var selected_specific_block = function() {
+  d3.selectAll("rect.blocks").classed("menu_selected_block", false);
+
+  d3
+    .select(`.${selected_target}.${selected_source}`)
+    .classed("menu_selected_block", true);
 };
 
 d3.select("#filter1").on("change", filter_1);
