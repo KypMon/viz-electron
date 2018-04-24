@@ -1,3 +1,4 @@
+
 .node {
     font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
     fill: #bbb;
@@ -32,6 +33,18 @@
     fill: #d62728;
 }
 
+.selected_conn_text {
+    fill: purple
+}
+
+.selected_conn_link {
+    stroke: purple;
+    stroke-width: 3;
+    stroke-opacity: 1;
+    fill: none;
+    pointer-events: none;
+}
+
 .link--source,
 .link--target {
     stroke: red;
@@ -63,58 +76,65 @@
     display: none;
 }
 
-.wordcloud {
-    position: fixed;
-    left: 1500px;
-    top: 150px;
-    border: 1px solid black;
-    fill: '#7272d0'
-}
-
 .worditem {
     border: 2px solid black;
 }
 
-.worditem-highlight {
-    fill: 'yellow'
+#connectivity {
+    position: absolute;
+    top: 2000px;
+    left: 20%;
 }
 
-.worditem-lh {
-    fill: '#ff7f0e';
-}
 
-.worditem-rh {
-    fill: '#1f77b4';
+/* Description list */
+#description {
+    width: 100%;
+    height: 45px;
+    background-color: antiquewhite;
+    position: fixed;
 }
 
 #target_button {
     position:absolute;
-    left: 5%
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #target_text {
     position:absolute;
-    left: 10%
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #source_button {
     position:absolute;
-    left: 25%
+    left: 25%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #source_text {
     position:absolute;
-    left: 30%
+    left: 30%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #correlation_value {
     position:absolute;
-    left: 45%
+    left: 45%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #weight_value {
     position:absolute;
-    left: 56%
+    left: 56%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .menu_selected_block {

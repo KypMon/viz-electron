@@ -39,8 +39,15 @@ var matrix_transform = d3.transform().scale(function(d) {
   return 1.05;
 });
 
+var chord_transform = d3.transform().translate(function(d) {
+  return [100, 100];
+});
+
 var selected_target;
 var selected_source;
+
+var link_conn;
+var node_conn;
 
 function init() {
   nodes = [];
@@ -283,23 +290,26 @@ var drawChord = function() {
   var arcG = svg
     .append("g")
     .attr("class", "arcGroup")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
+    .attr("transform", "translate(" + radius * 1.2 + "," + radius * 1.2 + ")");
 
-  var subG = svg.append("g").attr("class", "subGroup");
+  // var subG = svg.append("g").attr("class", "subGroup");
 
-  var text = svg
-    .append("text")
-    .attr("x", -50)
-    .attr("y", 0)
-    .attr("font-size", 15)
-    .attr("font-family", "simsun");
+  // var text = svg
+  //   .append("text")
+  //   .attr("x", -50)
+  //   .attr("y", 0)
+  //   .attr("font-size", 15)
+  //   .attr("font-family", "simsun");
 
-  var link_conn = svg
+  link_conn = svg
     .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
-  var node_conn = svg
+    .attr("id", "link_conn")
+    .attr("transform", "translate(" + radius * 1.2 + "," + radius * 1.2 + ")");
+
+  node_conn = svg
     .append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
+    .attr("id", "node_conn")
+    .attr("transform", "translate(" + radius * 1.2 + "," + radius * 1.2 + ")");
 
   var createAngleData = function() {
     //add arc data into the arrray
@@ -382,7 +392,7 @@ var drawChord = function() {
       .enter()
       .append("text")
       .attr("class", function(d, i) {
-        "node " + d.data.name;
+        return d.data.name;
       })
       // .attr("dy", "0.30em")
       .attr("transform", function(d) {
@@ -624,35 +634,33 @@ var drawWordCloud = function() {
       d3.selectAll(".node." + d).classed("node-highlight", false);
     });
 
-  d3
-    .select("svg#word")
-    .selectAll("text")
-    .data(headerArr)
-    .enter()
-    .append("text")
-    .attr("fill", "black")
-    .attr("x", function(d, i) {
-      if (d.indexOf("_lh_")) {
-        return 220;
-      } else {
-        return 35;
-      }
-    })
-    .attr("y", function(d, i) {
-      return 57 + (i % (headerArr.length / 2)) * 20;
-    })
-    .text(function(d, i) {
-      return d;
-    })
-    .raise();
+  d3.select("#connectivity").attr("transform", chord_transform);
 };
 
 var selected_specific_block = function() {
+  //clear previous selected
   d3.selectAll("rect.blocks").classed("menu_selected_block", false);
 
+  d3.selectAll("text").classed("selected_conn_text", false);
+
+  d3.selectAll("path.link").classed("selected_conn_link", false);
+
+  //matrix
   d3
+    .select("#matrix")
     .select(`.${selected_target}.${selected_source}`)
     .classed("menu_selected_block", true);
+
+  //chord
+  d3
+    .select(`path.${selected_target}.${selected_source}`)
+    .classed("selected_conn_link", true)
+    .raise();
+
+  d3.select(`text.${selected_source}`).classed("selected_conn_text", true);
+
+  d3.select(`text.${selected_target}`).classed("selected_conn_text", true);
 };
 
+//filter
 d3.select("#filter1").on("change", filter_1);
