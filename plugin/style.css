@@ -1,0 +1,89 @@
+.node {
+    font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    fill: #bbb;
+}
+
+.node:hover {
+    fill: #000;
+}
+
+.node-highlight {
+    fill: #000;
+}
+
+.link {
+    stroke: steelblue;
+    stroke-opacity: 0.2;
+    fill: none;
+    pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+    font-weight: 700;
+}
+
+.node--source {
+    fill: #2ca02c;
+}
+
+.node--target {
+    fill: #d62728;
+}
+
+.link--source,
+.link--target {
+    stroke: red;
+    stroke-opacity: 1;
+    opacity: 1;
+    stroke-width: 4px;
+}
+
+.arc-highlight {
+    fill: lightcoral;
+}
+
+.node-highlight {
+    font-weight: 700;
+    fill: black;
+}
+
+.highlight-block {
+    stroke-width: 3;
+    stroke: black;
+}
+
+.highlight-block-focus {
+    fill: yellow;
+    opacity: 1;
+    opacity: 1;
+}
+
+.disappear {
+    display: none;
+}
+
+.wordcloud {
+    position: fixed;
+    left: 1500px;
+    top: 150px;
+    border: 1px solid black;
+    fill: '#7272d0'
+}
+
+.worditem {
+    border: 2px solid black;
+}
+
+.worditem-highlight {
+    fill: 'yellow'
+}
+
+.worditem-lh {
+    fill: '#ff7f0e';
+}
+
+.worditem-rh {
+    fill: '#1f77b4';
+}
