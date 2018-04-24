@@ -9,10 +9,10 @@
   <script src="./plugin/d3.js"></script>
   <link rel="stylesheet" href="./plugin/style.css" />
   <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="./plugin/materialize.css">
   
   <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script src="./plugin/materialize.min.js"></script>
   
 </head>
 
@@ -28,39 +28,38 @@
 
   <form action="#">
     <p class="range-field">
-      <input type="range" id="filter1" min="0" max="1" step="0.01" value='1' />
+      <input type="range" id="filter1" min="0" max="1" step="0.01" value='0' />
     </p>
   </form>
 
   <div id="description">
-    <a class='dropdown-trigger btn' href='#' data-target='target_dropdown'>Target</a>
+    <a class='dropdown-trigger btn' href='#' id="target_button" data-target='target_dropdown'>Target</a>
     <span id="target_text"></span>
 
     <!-- Dropdown Structure -->
     <ul id='target_dropdown' class='dropdown-content'>
     </ul>
 
-    <a class='dropdown-trigger btn' href='#' data-target='source_dropdown'>Source</a>
+    <a class='dropdown-trigger btn' href='#' id="source_button" data-target='source_dropdown'>Source</a>
     <span id="source_text"></span>
 
     <!-- Dropdown Structure -->
     <ul id='source_dropdown' class='dropdown-content'>
     </ul>
 
-    <a class='dropdown-trigger btn' href='#'>Pearson Correlation</a>
+    <a class='btn disabled' id="correlation_value" href='#'>Pearson Correlation</a>
     <span id="weight_value"></span>
 
   </div>
 
   <div id='viz'>
-    <svg height='1920px' width='1920px' id='matrix'></svg>
+    <svg height='1860' width='1860' id='matrix'></svg>
     <svg height='1200px' width='1600px' id='connectivity'></svg>
     <svg height='800px' width="400px" class='wordcloud' id='word'></svg>
   </div>
 
   <script src="./plugin/d3-adjacency-matrix-layout.js"></script>
   <script src="./plugin/d3-transform.js"></script>
-  <script src="./plugin/dat.gui.min.js"></script>
 
   <script src="./app.js"></script>
 

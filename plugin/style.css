@@ -87,3 +87,37 @@
 .worditem-rh {
     fill: '#1f77b4';
 }
+
+#description {
+
+}
+
+#target_button {
+    position:absolute;
+    left: 5%
+}
+
+#target_text {
+    position:absolute;
+    left: 10%
+}
+
+#source_button {
+    position:absolute;
+    left: 25%
+}
+
+#source_text {
+    position:absolute;
+    left: 30%
+}
+
+#correlation_value {
+    position:absolute;
+    left: 45%
+}
+
+#weight_value {
+    position:absolute;
+    left: 56%
+}

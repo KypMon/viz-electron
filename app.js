@@ -1,5 +1,4 @@
-var elem = document.querySelector(".dropdown-trigger");
-var instance = M.Dropdown.init(elem);
+M.AutoInit();
 
 var headerData, fData;
 
@@ -102,7 +101,7 @@ var drawMatrix = function() {
   var matrixLayout = d3.adjacencyMatrixLayout();
 
   matrixLayout
-    .size([1840, 1840])
+    .size([1800, 1800])
     .nodes(nodes)
     .links(links)
     .directed(true)
@@ -148,7 +147,7 @@ var drawMatrix = function() {
       return colorScale(d.source.group);
     })
     .attr("fill-opacity", function(d) {
-      return d.weight * 0.8;
+      return Math.abs(d.weight * 0.8);
     });
   //        .attr('transform', matrix_transform);
 
@@ -552,12 +551,30 @@ var drawWordCloud = function() {
     .enter()
     .append("li");
 
+  var li_item_source = d3
+    .select("#source_dropdown")
+    .selectAll("li")
+    .data(headerArr)
+    .enter()
+    .append("li");
+
   li_item_target
     .append("a")
     .attr("href", "#!")
     .text(function(d) {
       return d;
-    })
+    });
+
+  li_item_source
+    .append("a")
+    .attr("href", "#!")
+    .text(function(d) {
+      return d;
+    });
+
+  d3
+    .select("#source_dropdown")
+    .selectAll("li")
     .on("mouseover", function(d, i) {
       //block
       d3.selectAll("rect.blocks." + d).classed("highlight-block", true);
