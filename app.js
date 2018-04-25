@@ -304,13 +304,25 @@ var drawChord = function() {
 
   var createAngleData = function() {
     //add arc data into the arrray
-    for (var i = 0; i < 2; i++) {
-      arcData.push({
-        startAngle: Math.PI * i,
-        endAngle: Math.PI * (i + 1)
-      });
-    }
-    //        console.log(arcData);
+    arcData.push({
+      startAngle: 0,
+      endAngle: Math.PI * 2 * 75 / 168
+    });
+
+    arcData.push({
+      startAngle: Math.PI * 2 * 75 / 168,
+      endAngle: Math.PI * 2 * 150 / 168
+    });
+
+    arcData.push({
+      startAngle: Math.PI * 2 * 150 / 168,
+      endAngle: Math.PI * 2 * 159 / 168
+    });
+
+    arcData.push({
+      startAngle: Math.PI * 2 * 159 / 168,
+      endAngle: Math.PI * 2
+    });
   };
 
   var drawArc = function() {
@@ -512,6 +524,12 @@ var packageHierarchy = function(data) {
   return d3.hierarchy(map[""]);
 };
 
+/* 
+
+Description List
+
+*/
+
 var draw_target_list = function(word) {
   var li_item_target = d3
     .select("#target_dropdown")
@@ -712,7 +730,7 @@ var filter_list = function(type) {
     node_conn
       .filter(function(d) {
         if (
-          d.data.name.toLowerCase().indexOf(word_source) >= 0||
+          d.data.name.toLowerCase().indexOf(word_source) >= 0 ||
           d.data.name.toLowerCase().indexOf(word_target) >= 0
         ) {
           return true;

@@ -1,3 +1,19 @@
+/* Layout */
+#description {
+    width: 100%;
+    height: 45px;
+    background-color: antiquewhite;
+    position: fixed;
+}
+
+#connectivity {
+    position: absolute;
+    top: 2000px;
+    left: 20%;
+}
+
+
+
 
 .node {
     font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -5,11 +21,18 @@
 }
 
 .node:hover {
-    fill: #000;
+    font-weight: 700;
+    fill: black;
+}
+
+text:hover {
+    font-weight: 700;
+    fill: black;
 }
 
 .node-highlight {
-    fill: #000;
+    font-weight: 700;
+    fill: black;
 }
 
 .link {
@@ -19,18 +42,14 @@
     pointer-events: none;
 }
 
-.node:hover,
-.node--source,
-.node--target {
-    font-weight: 700;
-}
-
 .node--source {
     fill: #2ca02c;
+    font-weight: 700;
 }
 
 .node--target {
     fill: #d62728;
+    font-weight: 700;
 }
 
 .selected_conn_text {
@@ -96,38 +115,26 @@
     border: 2px solid black;
 }
 
-#connectivity {
-    position: absolute;
-    top: 2000px;
-    left: 20%;
-}
 
 
 /* Description list */
-#description {
-    width: 100%;
-    height: 45px;
-    background-color: antiquewhite;
-    position: fixed;
-}
-
 #target_button {
     position:absolute;
-    left: 5%;
+    left: 3%;
     top: 50%;
     transform: translateY(-50%);
 }
 
 #target_text {
     position:absolute;
-    left: 10%;
+    left: 9%;
     top: 50%;
     transform: translateY(-50%);
 }
 
 #source_button {
     position:absolute;
-    left: 25%;
+    left: 24%;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -148,7 +155,7 @@
 
 #weight_value {
     position:absolute;
-    left: 56%;
+    left: 58%;
     top: 50%;
     transform: translateY(-50%);
 }
