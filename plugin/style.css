@@ -45,6 +45,15 @@
     pointer-events: none;
 }
 
+.searched_link {
+    stroke: palegreen;
+    stroke-width: 4px;
+    stroke-opacity: 1;
+    fill: none;
+    pointer-events: none;
+}
+
+
 .link--source,
 .link--target {
     stroke: red;
@@ -62,6 +71,8 @@
     fill: black;
 }
 
+
+
 .highlight-block {
     stroke-width: 3;
     stroke: black;
@@ -69,6 +80,11 @@
 
 .highlight-block-focus {
     fill: yellow;
+    opacity: 1;
+}
+
+.searched_block {
+    fill: purple;
     opacity: 1;
 }
 
@@ -140,4 +156,27 @@
 .menu_selected_block {
     fill: red;
     opacity: 1;
+}
+
+/* Search */
+
+#search_label {
+    position:absolute;
+    left: 65%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.target_search {
+    position:absolute;
+    left: 72%;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.source_search {
+    position:absolute;
+    left: 75%;
+    top: 30%;
+    transform: translateY(-50%);
 }

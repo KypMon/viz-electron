@@ -292,15 +292,6 @@ var drawChord = function() {
     .attr("class", "arcGroup")
     .attr("transform", "translate(" + radius * 1.2 + "," + radius * 1.2 + ")");
 
-  // var subG = svg.append("g").attr("class", "subGroup");
-
-  // var text = svg
-  //   .append("text")
-  //   .attr("x", -50)
-  //   .attr("y", 0)
-  //   .attr("font-size", 15)
-  //   .attr("font-family", "simsun");
-
   link_conn = svg
     .append("g")
     .attr("id", "link_conn")
@@ -353,9 +344,6 @@ var drawChord = function() {
     });
 
     cluster(root);
-
-    //        console.log(root);
-    //        console.log(packageImports(root.leaves()))
 
     link_conn = link_conn
       .selectAll(".link")
@@ -472,6 +460,8 @@ var drawChord = function() {
   };
 
   draw();
+
+  d3.select("#connectivity").attr("transform", chord_transform);
 };
 
 // Return a list of imports for the given array of nodes.
@@ -522,41 +512,7 @@ var packageHierarchy = function(data) {
   return d3.hierarchy(map[""]);
 };
 
-var filter_1 = function() {
-  d3.selectAll(".link").attr("style", function(d, i) {
-    var res1 = Math.floor(i / headerArr.length);
-    var res2 = i % headerArr.length;
-    return "opacity:" + fData[res1][res2] * 0.5;
-  });
-
-  d3.selectAll(".blocks").attr("fill-opacity", function(d) {
-    // console.log(d);
-    return d.weight * 0.8;
-  });
-
-  var value = document.querySelector("#filter1").value;
-
-  d3
-    .selectAll(".blocks")
-    .filter(function(dt, index) {
-      return dt.weight < value;
-    })
-    .attr("fill-opacity", 0);
-
-  d3
-    .selectAll(".link")
-    .filter(function(dt, index) {
-      var res1 = Math.floor(index / headerArr.length);
-      var res2 = index % headerArr.length;
-      return fData[res1][res2] < value;
-    })
-    .each(function(d) {
-      console.log(d);
-    })
-    .attr("style", "opacity: 0");
-};
-
-var drawWordCloud = function() {
+var draw_target_list = function(word) {
   var li_item_target = d3
     .select("#target_dropdown")
     .selectAll("li")
@@ -571,6 +527,15 @@ var drawWordCloud = function() {
       }
     });
 
+  li_item_target
+    .append("a")
+    .attr("href", "#!")
+    .text(function(d) {
+      return d;
+    });
+};
+
+var draw_source_list = function(word) {
   var li_item_source = d3
     .select("#source_dropdown")
     .selectAll("li")
@@ -585,19 +550,18 @@ var drawWordCloud = function() {
       }
     });
 
-  li_item_target
-    .append("a")
-    .attr("href", "#!")
-    .text(function(d) {
-      return d;
-    });
-
   li_item_source
     .append("a")
     .attr("href", "#!")
     .text(function(d) {
       return d;
     });
+};
+
+var drawWordCloud = function(type) {
+  draw_target_list();
+
+  draw_source_list();
 
   d3
     .select("#source_dropdown")
@@ -633,8 +597,6 @@ var drawWordCloud = function() {
       //link Node
       d3.selectAll(".node." + d).classed("node-highlight", false);
     });
-
-  d3.select("#connectivity").attr("transform", chord_transform);
 };
 
 var selected_specific_block = function() {
@@ -662,5 +624,107 @@ var selected_specific_block = function() {
   d3.select(`text.${selected_target}`).classed("selected_conn_text", true);
 };
 
+var filter_1 = function() {
+  d3.selectAll(".link").attr("style", function(d, i) {
+    var res1 = Math.floor(i / headerArr.length);
+    var res2 = i % headerArr.length;
+    return "opacity:" + fData[res1][res2] * 0.5;
+  });
+
+  d3.selectAll(".blocks").attr("fill-opacity", function(d) {
+    // console.log(d);
+    return d.weight * 0.8;
+  });
+
+  var value = document.querySelector("#filter1").value;
+
+  d3
+    .selectAll(".blocks")
+    .filter(function(dt, index) {
+      return dt.weight < value;
+    })
+    .attr("fill-opacity", 0);
+
+  d3
+    .selectAll(".link")
+    .filter(function(dt, index) {
+      var res1 = Math.floor(index / headerArr.length);
+      var res2 = index % headerArr.length;
+      return fData[res1][res2] < value;
+    })
+    // .each(function(d) {
+    //   // console.log(d);
+    // })
+    .attr("style", "opacity: 0");
+};
+
+var initial_search = function() {
+  d3.selectAll(".blocks").classed("searched_block", false);
+
+  link_conn.classed("searched_link", false).classed("disappear", false);
+
+  node_conn.classed("node-highlight", false);
+};
+
+var filter_list = function(type) {
+  initial_search();
+
+  var word_target = document
+    .getElementById("target_inline")
+    .value.toLowerCase();
+
+  var word_source = document
+    .getElementById("source_inline")
+    .value.toLowerCase();
+
+  if (word_target !== "" && word_source !== "") {
+    d3
+      .selectAll(".blocks")
+      .filter(function(d) {
+        if (
+          d.id.toLowerCase().indexOf(word_target) >= 0 &&
+          d.id.toLowerCase().indexOf(word_source) >= 0
+        ) {
+          return true;
+        }
+        return false;
+      })
+      .classed("searched_block", true);
+
+    d3
+      .select("#link_conn")
+      .selectAll("path.link")
+      .filter(function(d) {
+        if (
+          (d.source.data.name.toLowerCase().indexOf(word_source) >= 0 ||
+            d.source.data.name.toLowerCase().indexOf(word_target) >= 0) &&
+          (d.target.data.name.toLowerCase().indexOf(word_source) >= 0 ||
+            d.target.data.name.toLowerCase().indexOf(word_target) >= 0)
+        ) {
+          // console.log(d);
+          return true;
+        }
+        return false;
+      })
+      .raise()
+      .classed("searched_link", true);
+
+    node_conn
+      .filter(function(d) {
+        if (
+          d.data.name.toLowerCase().indexOf(word_source) >= 0||
+          d.data.name.toLowerCase().indexOf(word_target) >= 0
+        ) {
+          return true;
+        }
+        return false;
+      })
+      .classed("node-highlight", true);
+  }
+};
+
 //filter
 d3.select("#filter1").on("change", filter_1);
+
+d3.select("#target_inline").on("change", filter_list);
+d3.select("#source_inline").on("change", filter_list);
